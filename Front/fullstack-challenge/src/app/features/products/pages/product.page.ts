@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Product } from '../../../shared/Model/product.model';
-import { loadProducts } from '../store/product.actions';
+import { loadProducts, deleteProduct } from '../store/product.actions';
 import { selectProductLoading, selectProducts } from '../store/product.selectors';
 
 @Component({
@@ -28,7 +28,12 @@ export class ProductPage implements OnInit {
 
   editProduct(product: Product): void {
     this.selectedProduct = product;
+    debugger;
     this.displayForm = true;
+  }
+
+  deleteProduct(id: number): void {
+    this.store.dispatch(deleteProduct({ id }));
   }
 
   onFormClose(refresh: boolean): void {
@@ -38,13 +43,9 @@ export class ProductPage implements OnInit {
       this.store.dispatch(loadProducts());
     }
   }
-  onGlobalFilter(event: Event, table: any) {
+
+  onGlobalFilter(event: Event, table: any): void {
     const input = event.target as HTMLInputElement;
     table.filterGlobal(input.value, 'contains');
-  }
-
-  deleteProduct(id: number): void {
-    // Acá deberías disparar una acción de deleteProduct si ya está implementada.
-    // this.store.dispatch(deleteProduct({ id }));
   }
 }

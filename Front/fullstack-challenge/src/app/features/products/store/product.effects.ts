@@ -14,9 +14,13 @@ import {
   updateProductFailure,
   deleteProduct,
   deleteProductSuccess,
-  deleteProductFailure
+  deleteProductFailure,
+  loadProducts,
+  loadProductsSuccess,
+  loadProductsFailure
 } from './product.actions';
 import { MessageService } from 'primeng/api';
+import { Product } from 'src/app/shared/Model/product.model';
 
 @Injectable()
 export class ProductEffects {
@@ -26,22 +30,40 @@ export class ProductEffects {
     private store: Store,
     private messageService: MessageService
   ) {}
-
+  load$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadProducts),
+      switchMap(() =>
+        this.productService.getAll().pipe(
+          map((products) => {
+            console.log('📦 Productos cargados:', products);
+            return loadProductsSuccess({ products });
+          }),
+          catchError(error => of(loadProductsFailure({ error })))
+        )
+      )
+    )
+  );
+  
   create$ = createEffect(() =>
     this.actions$.pipe(
       ofType(createProduct),
       switchMap(({ product }) =>
         this.productService.create(product).pipe(
-          map(() => {
-            this.messageService.add({ severity: 'success', summary: 'Producto creado', detail: 'Se creó correctamente' });
-            return createProductSuccess();
+          map((response) => {
+            const created = response.data;
+            console.log('✅ Producto creado desde backend:', created);
+            return createProductSuccess({ product: created });
           }),
-          catchError(error => {
-            this.messageService.add({ severity: 'error', summary: 'Error al crear', detail: error.message });
-            return of(createProductFailure({ error }));
-          })
+          catchError(error => of(createProductFailure({ error })))
         )
       )
+    )
+  );
+  createSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(createProductSuccess),
+      map(() => loadProducts())
     )
   );
 
@@ -50,7 +72,7 @@ export class ProductEffects {
       ofType(updateProduct),
       switchMap(({ id, product }) =>
         this.productService.update(id, product).pipe(
-          map(() => updateProductSuccess()),
+          map(() => updateProductSuccess({ id, product })),
           catchError(error => of(updateProductFailure({ error })))
         )
       )
@@ -62,7 +84,7 @@ export class ProductEffects {
       ofType(deleteProduct),
       switchMap(({ id }) =>
         this.productService.delete(id).pipe(
-          map(() => deleteProductSuccess()),
+          map(() => deleteProductSuccess({ id })),
           catchError(error => of(deleteProductFailure({ error })))
         )
       )

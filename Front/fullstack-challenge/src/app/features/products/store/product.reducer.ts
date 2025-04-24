@@ -35,17 +35,29 @@ export const productReducer = createReducer(
   on(loadProductsSuccess, (state, { products }) => ({
     ...state,
     loading: false,
-    products
+    products,
+    error: null
   })),
   on(loadProductsFailure, (state, { error }) => ({
     ...state,
     loading: false,
     error
   })),
+  on(loadProductsSuccess, (state, { products }) => ({
+    ...state,
+    loading: false,
+    products,
+    error: null
+  })),
 
   // CREATE
   on(createProduct, state => ({ ...state, loading: true })),
-  on(createProductSuccess, state => ({ ...state, loading: false })),
+  on(createProductSuccess, (state, { product }) => ({
+    ...state,
+    loading: false,
+    products: [...state.products, product],
+    error: null
+  })),
   on(createProductFailure, (state, { error }) => ({
     ...state,
     loading: false,
@@ -54,7 +66,12 @@ export const productReducer = createReducer(
 
   // UPDATE
   on(updateProduct, state => ({ ...state, loading: true })),
-  on(updateProductSuccess, state => ({ ...state, loading: false })),
+  on(updateProductSuccess, (state, { id, product }) => ({
+    ...state,
+    loading: false,
+    products: state.products.map(p => p.id === id ? { ...p, ...product } : p),
+    error: null
+  })),
   on(updateProductFailure, (state, { error }) => ({
     ...state,
     loading: false,
@@ -63,7 +80,12 @@ export const productReducer = createReducer(
 
   // DELETE
   on(deleteProduct, state => ({ ...state, loading: true })),
-  on(deleteProductSuccess, state => ({ ...state, loading: false })),
+  on(deleteProductSuccess, (state, { id }) => ({
+    ...state,
+    loading: false,
+    products: state.products.filter(p => p.id !== id),
+    error: null
+  })),
   on(deleteProductFailure, (state, { error }) => ({
     ...state,
     loading: false,

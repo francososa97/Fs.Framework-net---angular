@@ -2,8 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Store } from "@ngrx/store";
 import { Product } from "src/app/shared/Model/product.model";
-import { createProduct, updateProduct } from "../../store/product.actions";
-import { loadProducts } from "../store/product.actions";
+import { createProduct, updateProduct } from "../store/product.actions";
 
 @Component({
   selector: 'app-product-form',
@@ -22,9 +21,7 @@ export class ProductFormComponent implements OnInit, OnChanges {
 
   constructor(private fb: FormBuilder, private store: Store) {}
 
-  ngOnInit(): void {
-    this.store.dispatch(loadProducts());
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['product']) {
@@ -44,6 +41,7 @@ export class ProductFormComponent implements OnInit, OnChanges {
     if (this.product?.id) {
       this.store.dispatch(updateProduct({ id: this.product.id, product: data }));
     } else {
+      debugger;
       this.store.dispatch(createProduct({ product: data }));
     }
 

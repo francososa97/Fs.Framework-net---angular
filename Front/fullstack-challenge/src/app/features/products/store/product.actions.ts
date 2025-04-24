@@ -8,15 +8,24 @@ export const loadProductsFailure = createAction('[Product] Load Failure', props<
 
 // Create
 export const createProduct = createAction('[Product] Create', props<{ product: Product }>());
-export const createProductSuccess = createAction('[Product] Create Success');
+export const createProductSuccess = createAction(
+    '[Product] Create Success',
+    props<{ product: Product }>()
+  );
 export const createProductFailure = createAction('[Product] Create Failure', props<{ error: any }>());
 
 // Update
 export const updateProduct = createAction('[Product] Update', props<{ id: number, product: Product }>());
-export const updateProductSuccess = createAction('[Product] Update Success');
+export const updateProductSuccess = createAction(
+    '[Product] Update Success',
+    props<{ id: number, product: Product }>()
+  );
 export const updateProductFailure = createAction('[Product] Update Failure', props<{ error: any }>());
 
 // Delete
 export const deleteProduct = createAction('[Product] Delete', props<{ id: number }>());
-export const deleteProductSuccess = createAction('[Product] Delete Success');
+export const deleteProductSuccess = createAction(
+    '[Product] Delete Success',
+    props<{ id: number }>()
+  );
 export const deleteProductFailure = createAction('[Product] Delete Failure', props<{ error: any }>());

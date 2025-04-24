@@ -59,6 +59,19 @@ public class Program
         })
         .AddPolicyHandler(GetRetryPolicy())
         .AddPolicyHandler(GetCircuitBreakerPolicy());
+
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAngular",
+                policy =>
+                {
+                    policy.WithOrigins("http://localhost:4200")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod()
+                          .AllowCredentials();
+                });
+        });
+
         builder.Services.AddScoped<IProductService, UserService>();
         builder.Services.AddScoped<IProductRepository, UserRepository>();
         builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -165,7 +178,7 @@ public class Program
         app.UseHttpsRedirection();
 
         app.UseRouting();
-
+        app.UseCors("AllowAngular");
         app.UseAuthentication();
         app.UseAuthorization();
 
