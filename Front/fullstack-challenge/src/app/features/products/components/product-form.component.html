@@ -1,0 +1,24 @@
+<p-dialog header="Formulario Producto" [(visible)]="visible" [modal]="true" [closable]="false">
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="p-fluid">
+        <div class="p-field">
+          <label>Nombre</label>
+          <input pInputText formControlName="name" />
+        </div>
+        <div class="p-field">
+          <label>Precio</label>
+          <input pInputText type="number" formControlName="price" />
+        </div>
+        <div class="p-field">
+          <label>Stock</label>
+          <input pInputText type="number" formControlName="stock" />
+        </div>
+      </div>
+  
+      <div class="p-dialog-footer">
+        <button pButton label="Cancelar" icon="pi pi-times" class="p-button-text" type="button" (click)="cancel()"></button>
+        <button pButton label="Guardar" icon="pi pi-check" type="submit" [disabled]="form.invalid"></button>
+      </div>
+    </form>
+  </p-dialog>
+  
