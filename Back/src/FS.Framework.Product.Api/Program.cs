@@ -80,7 +80,7 @@ public class Program
         // FluentValidation
         builder.Services.AddValidatorsFromAssemblyContaining<CreateProductCommandValidator>();
         builder.Services.AddValidatorsFromAssemblyContaining<UpdateProductCommandValidator>();
-        builder.Services.AddValidatorsFromAssemblyContaining<DeleteUserCommandValidator>();
+        builder.Services.AddValidatorsFromAssemblyContaining<DeleteProductCommand>();
 
         builder.Services.AddFluentValidationAutoValidation();
         builder.Services.AddFluentValidationClientsideAdapters();

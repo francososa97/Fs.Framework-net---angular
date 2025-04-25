@@ -35,8 +35,11 @@ public class ProductService : IProductService
         => await _unitOfWork.Product.GetByIdAsync(id);
 
     public async Task<ProductModel> AddAsync(ProductModel product)
-     => await _unitOfWork.Product.AddAsync(product);
-         
+    {
+        await _unitOfWork.Product.AddAsync(product);
+        await _unitOfWork.SaveChangesAsync();
+        return product;
+    }
 
     public async Task<ProductModel> UpdateAsync(ProductModel product)
     {

@@ -41,7 +41,6 @@ export class ProductFormComponent implements OnInit, OnChanges {
     if (this.product?.id) {
       this.store.dispatch(updateProduct({ id: this.product.id, product: data }));
     } else {
-      debugger;
       this.store.dispatch(createProduct({ product: data }));
     }
 

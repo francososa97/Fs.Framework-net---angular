@@ -28,7 +28,6 @@ export class ProductPage implements OnInit {
 
   editProduct(product: Product): void {
     this.selectedProduct = product;
-    debugger;
     this.displayForm = true;
   }
 

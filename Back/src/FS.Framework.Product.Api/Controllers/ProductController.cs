@@ -40,8 +40,8 @@ public class ProductController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {
-        var user = await _mediator.Send(new GetProductByIdQuery(id));
-        return user is null ? NotFound() : Ok(user);
+        var product = await _mediator.Send(new GetProductByIdQuery(id));
+        return product is null ? NotFound() : Ok(product);
     }
 
     /// <summary>
