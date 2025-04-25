@@ -12,9 +12,6 @@ using System.Text;
 using Microsoft.OpenApi.Models;
 using FluentValidation.AspNetCore;
 using FluentValidation;
-using FS.Framework.Product.Application.Features.Users.Commands.CreateUserCommand;
-using FS.Framework.Product.Application.Features.Users.Commands.DeleteUserCommand;
-using FS.Framework.Product.Application.Features.Users.Commands.UpdateUserCommand;
 using Microsoft.AspNetCore.Authentication;
 using FS.Framework.Product.Application.Interfaces.Cache;
 using FS.Framework.Product.Infrastructure.Cache;
@@ -23,6 +20,9 @@ using Serilog.Events;
 using Polly.Extensions.Http;
 using Polly;
 using FS.Framework.Product.Application.Features.Product.Mappings;
+using FS.Framework.Product.Application.Features.Product.Commands.CreateProduct;
+using FS.Framework.Product.Application.Features.Product.Commands.UpdateProduct;
+using FS.Framework.Product.Application.Features.Product.Commands.DeleteProduct;
 
 [ExcludeFromCodeCoverage]
 public class Program
@@ -72,8 +72,8 @@ public class Program
                 });
         });
 
-        builder.Services.AddScoped<IProductService, UserService>();
-        builder.Services.AddScoped<IProductRepository, UserRepository>();
+        builder.Services.AddScoped<IProductService, ProductService>();
+        builder.Services.AddScoped<IProductRepository, ProductRepository>();
         builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
         builder.Services.AddMemoryCache();
         builder.Services.AddScoped<ICacheHelper, CacheHelper>();
@@ -111,7 +111,7 @@ public class Program
     {
         builder.Services.AddSwaggerGen(c =>
         {
-            c.SwaggerDoc("v1", new OpenApiInfo { Title = "FS.Framework API", Version = "v1", Description = " API para gestión de productos\\n 🔐 API Key: `super-secret-key`\"" });
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "FS.Framework API", Version = "v1", Description = " API para gestión de productos 🔐 API Key: `super-secret-key` o con JWT: `Email: admin` `Password: admin123`" });
 
             var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);

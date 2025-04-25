@@ -1,8 +1,8 @@
-﻿using FS.Framework.Product.Application.Features.Users.Commands.CreateUserCommand;
-using FS.Framework.Product.Application.Features.Users.Commands.DeleteUserCommand;
-using FS.Framework.Product.Application.Features.Users.Commands.UpdateUserCommand;
-using FS.Framework.Product.Application.Features.Users.Queries.GetAllUsersQuery;
-using FS.Framework.Product.Application.Features.Users.Queries.GetUserByIdQuery;
+﻿using FS.Framework.Product.Application.Features.Product.Commands.CreateProduct;
+using FS.Framework.Product.Application.Features.Product.Commands.DeleteProduct;
+using FS.Framework.Product.Application.Features.Product.Commands.UpdateProduct;
+using FS.Framework.Product.Application.Features.Product.Queries.GetAllProduct;
+using FS.Framework.Product.Application.Features.Product.Queries.GetProductById;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +25,7 @@ public class ProductController : ControllerBase
     }
 
     /// <summary>
-    /// Obtiene todos los usuarios registrados
+    /// Obtiene todos los Productos registrados
     /// </summary>
     /// <returns></returns>
     [HttpGet]
@@ -33,22 +33,22 @@ public class ProductController : ControllerBase
 
 
     /// <summary>
-    /// Obtiene un usuario por su ID.
+    /// Obtiene un Productos por su ID.
     /// </summary>
-    /// <param name="id">Identificador del usuario.</param>
-    /// <returns>Usuario encontrado o 404 si no existe.</returns>
+    /// <param name="id">Identificador del Producto.</param>
+    /// <returns>Productos encontrado o 404 si no existe.</returns>
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {
-        var user = await _mediator.Send(new GetUserByIdQuery(id));
+        var user = await _mediator.Send(new GetProductByIdQuery(id));
         return user is null ? NotFound() : Ok(user);
     }
 
     /// <summary>
-    /// Crea un nuevo usuario.
+    /// Crea un nuevo roducto.
     /// </summary>
-    /// <param name="command">Datos del usuario a crear.</param>
-    /// <returns>Usuario creado</returns>
+    /// <param name="command">Datos del roducto a crear.</param>
+    /// <returns>roducto creado</returns>
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateProductCommand command)
     {
@@ -57,10 +57,10 @@ public class ProductController : ControllerBase
     }
 
     /// <summary>
-    /// Actualiza un usuario existente.
+    /// Actualiza un roducto existente.
     /// </summary>
-    /// <param name="id">ID del usuario a actualizar.</param>
-    /// <param name="command">Datos actualizados del usuario.</param>
+    /// <param name="id">ID del roducto a actualizar.</param>
+    /// <param name="command">Datos actualizados del roducto.</param>
     /// <returns>204 si fue exitoso o 400 si hay inconsistencia en el ID.</returns>
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(Guid id, [FromBody] UpdateProductCommand command)
@@ -71,9 +71,9 @@ public class ProductController : ControllerBase
     }
 
     /// <summary>
-    /// Elimina un usuario por ID (soft delete).
+    /// Elimina un roducto por ID (soft delete).
     /// </summary>
-    /// <param name="id">ID del usuario a eliminar.</param>
+    /// <param name="id">ID del roducto a eliminar.</param>
     /// <returns>204 si fue eliminado.</returns>
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(Guid id)

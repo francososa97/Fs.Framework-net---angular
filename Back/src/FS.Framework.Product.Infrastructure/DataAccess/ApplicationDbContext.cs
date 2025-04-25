@@ -9,6 +9,5 @@ public class ApplicationDbContext : DbContext
         : base(options)
     {
     }
-
     public DbSet<ProductModel> products { get; set; }
 }

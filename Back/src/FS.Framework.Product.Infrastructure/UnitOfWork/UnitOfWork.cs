@@ -8,13 +8,13 @@ public class UnitOfWork : IUnitOfWork
     private readonly ApplicationDbContext _context;
 
     public UnitOfWork(ApplicationDbContext context,
-        IProductRepository userRepository)
+        IProductRepository productRepository)
     {
         _context = context;
-        Users= userRepository;
+        Product = productRepository;
     }
 
-    public IProductRepository Users { get; }
+    public IProductRepository Product { get; }
 
     public Task<int> SaveChangesAsync()
     {

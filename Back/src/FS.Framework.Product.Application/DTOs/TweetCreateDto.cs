@@ -6,7 +6,7 @@
 public class TweetCreateDto
 {
     /// <summary>
-    /// ID del usuario que publica el tweet.
+    /// ID del producto que publica el tweet.
     /// </summary>
     public string UserId { get; set; } = string.Empty;
 

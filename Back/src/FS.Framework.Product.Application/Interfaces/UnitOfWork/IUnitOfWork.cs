@@ -5,9 +5,9 @@ public interface IUnitOfWork
 {
 
     /// <summary>
-    /// Repositorio de usuarios.
+    /// Repositorio de products.
     /// </summary>
-    IProductRepository Users { get; }
+    IProductRepository Product { get; }
 
     /// <summary>
     /// Guarda los cambios realizados en las entidades persistidas.

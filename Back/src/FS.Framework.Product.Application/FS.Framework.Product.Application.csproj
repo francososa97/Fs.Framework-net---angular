@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Features\Product\Queries\GetProductByIdQuery\GetProductByIdQuery.cs" />
+    <None Include="Features\Product\Queries\GetProductById\GetProductByIdQuery.cs" />
   </ItemGroup>
 
   <ItemGroup>

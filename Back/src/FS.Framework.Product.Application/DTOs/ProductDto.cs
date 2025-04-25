@@ -1,27 +1,27 @@
 ﻿namespace FS.Framework.Product.Application.DTOs;
 
 /// <summary>
-/// Representa los datos de un usuario para exposición en la API.
+/// Representa los datos de un producto para exposición en la API.
 /// </summary>
 public class ProductDto
 {
     /// <summary>
-    /// Identificador único del usuario.
+    /// Identificador único del producto.
     /// </summary>
     public Guid Id { get; set; }
 
     /// <summary>
-    /// Nombre de usuario.
+    /// Nombre de producto.
     /// </summary>
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
-    /// Correo electrónico del usuario.
+    /// Correo electrónico del producto.
     /// </summary>
     public double Price { get; set; }
 
     /// <summary>
-    /// Indica si el usuario fue marcado como eliminado (soft delete).
+    /// Indica si el producto fue marcado como eliminado (soft delete).
     /// </summary>
     public int stock { get; set; }
 

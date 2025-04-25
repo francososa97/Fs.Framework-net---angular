@@ -1,27 +1,27 @@
 ﻿using FS.Framework.Product.Domain.Entities;
 
 /// <summary>
-/// Repositorio encargado de la persistencia de usuarios.
+/// Repositorio encargado de la persistencia de Producto.
 /// </summary>
 public interface IProductRepository
 {
     /// <summary>
-    /// Obtiene todos los usuarios que no están eliminados.
+    /// Obtiene todos los Producto que no están eliminados.
     /// </summary>
     Task<IEnumerable<ProductModel>> GetAllAsync();
 
     /// <summary>
-    /// Obtiene un usuario por su ID.
+    /// Obtiene un producto por su ID.
     /// </summary>
     Task<ProductModel> GetByIdAsync(Guid id);
 
     /// <summary>
-    /// Agrega un nuevo usuario.
+    /// Agrega un nuevo producto.
     /// </summary>
     Task<ProductModel> AddAsync(ProductModel product);
 
     /// <summary>
-    /// Actualiza los datos de un usuario.
+    /// Actualiza los datos de un producto.
     /// </summary>
     ProductModel Update(ProductModel product);
 
@@ -31,7 +31,7 @@ public interface IProductRepository
     Task SaveChangesAsync();
 
     /// <summary>
-    /// Realiza un soft delete del usuario.
+    /// Realiza un soft delete del producto.
     /// </summary>
     Task DeleteAsync(Guid id);
 }
